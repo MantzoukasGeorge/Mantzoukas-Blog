@@ -95,21 +95,21 @@ def seed_data():
             title="Netflix: Οι σειρές που σαρώνουν αυτή τη στιγμή στην Ελλάδα",
             subtitle="Το East of Eden στην κορυφή του ελληνικού Top 10 του Netflix",
             date=date.today().strftime("%B %d, %Y"),
-            body="<p>Νέες αφίξεις και σειρές που επέστρεψαν με νέες σεζόν διαμορφώνουν το Top 10 του Netflix στην Ελλάδα, με το East of Eden να βρίσκεται αυτή τη στιγμή στην κορυφή."
-                 "Στη δεύτερη θέση συναντάμε το Lego One Piece, ενώ ακολουθεί το Matlock. Την πεντάδα συμπληρώνουν τα The Final Problem και The Gentlemen, το οποίο επέστρεψε με τη δεύτερη σεζόν του."
-                 "Το υπόλοιπο Top 10 περιλαμβάνει τα Monster: The Lizzie Borden Story, Not a Stranger, Ghosts, Minerva Academy και Irreplaceable."
-                 "Οι δημοφιλέστερες σειρές του Netflix στην Ελλάδα αυτή τη στιγμή:"
-                 "1. East of Eden"
-                 "2. Lego One Piece"
-                 "3. Matlock"
-                 "4. The Final Problem"
-                 "5. The Gentlemen"
-                 "6. Monster: The Lizzie Borden Story"
-                 "7. Not a Stranger"
-                 "8. Ghosts"
-                 "9. Minerva Academy"
-                 "10. Irreplaceable"
-                 "Μερικές πληροφορίες για το East of Eden:"
+            body="<p>Νέες αφίξεις και σειρές που επέστρεψαν με νέες σεζόν διαμορφώνουν το <strong>Top 10</strong> του <strong>Netflix</strong> στην Ελλάδα, με το <strong>East of Eden</strong> να βρίσκεται αυτή τη στιγμή στην κορυφή.<br>"
+                 "Στη δεύτερη θέση συναντάμε το <strong>Lego One Piece</strong>, ενώ ακολουθεί το <strong>Matlock</strong>. Την πεντάδα συμπληρώνουν τα <strong>The Final Problem</strong> και <strong>The Gentlemen</strong>, το οποίο επέστρεψε με τη δεύτερη σεζόν του.<br>"
+                 "Το υπόλοιπο Top 10 περιλαμβάνει τα <strong>Monster: The Lizzie Borden Story, Not a Stranger, Ghosts, Minerva Academy</strong> και <strong>Irreplaceable</strong>.<br>"
+                 "Οι δημοφιλέστερες σειρές του Netflix στην Ελλάδα αυτή τη στιγμή:<br>"
+                 "1. East of Eden<br>"
+                 "2. Lego One Piece<br>"
+                 "3. Matlock<br>"
+                 "4. The Final Problem<br>"
+                 "5. The Gentlemen<br>"
+                 "6. Monster: The Lizzie Borden Story<br>"
+                 "7. Not a Stranger<br>"
+                 "8. Ghosts<br>"
+                 "9. Minerva Academy<br>"
+                 "10. Irreplaceable<br>"
+                 "Μερικές πληροφορίες για το East of Eden:<br>"
                  "Στην κοιλάδα Salinas της California, οι οικογένειες Trask και Hamilton μπλέκονται σε μια σύγκρουση που περνά από γενιά σε γενιά. Η ιστορία τους ακολουθεί τα βήματα του Cain και του Abel, καθώς τα ίδια σκοτεινά μοτίβα επαναλαμβάνονται και καθορίζουν τις ζωές των απογόνων τους."
                  "</p>",
             img_url="https://media.unboxholics.com/media/source/Articles/136908/images/bigImage/netflix-top-10-seires.webp",
@@ -187,7 +187,6 @@ def get_all_posts():
     return render_template("index.html", all_posts=posts)
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
-@login_required
 def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
     # Add the CommentForm to the route
