@@ -79,8 +79,48 @@ class Comment(db.Model):
     parent_post = relationship("BlogPost", back_populates="comments")
     text: Mapped[str] = mapped_column(Text, nullable=False)
 
+def seed_data():
+    if db.session.execute(db.select(User)).first() is None:
+        admin = User(
+            name="Admin",
+            email=os.environ.get("ADMIN_EMAIL"),
+            password=generate_password_hash(
+                os.environ.get("ADMIN_PASSWORD"),
+                method='pbkdf2:sha256:600000', salt_length=16),
+        )
+        db.session.add(admin)
+        db.session.flush()  # παίρνει id=1
+
+        db.session.add(BlogPost(
+            title="Netflix: Οι σειρές που σαρώνουν αυτή τη στιγμή στην Ελλάδα",
+            subtitle="Το East of Eden στην κορυφή του ελληνικού Top 10 του Netflix",
+            date=date.today().strftime("%B %d, %Y"),
+            body="<p>Νέες αφίξεις και σειρές που επέστρεψαν με νέες σεζόν διαμορφώνουν το Top 10 του Netflix στην Ελλάδα, με το East of Eden να βρίσκεται αυτή τη στιγμή στην κορυφή."
+                 "Στη δεύτερη θέση συναντάμε το Lego One Piece, ενώ ακολουθεί το Matlock. Την πεντάδα συμπληρώνουν τα The Final Problem και The Gentlemen, το οποίο επέστρεψε με τη δεύτερη σεζόν του."
+                 "Το υπόλοιπο Top 10 περιλαμβάνει τα Monster: The Lizzie Borden Story, Not a Stranger, Ghosts, Minerva Academy και Irreplaceable."
+                 "Οι δημοφιλέστερες σειρές του Netflix στην Ελλάδα αυτή τη στιγμή:"
+                 "1. East of Eden"
+                 "2. Lego One Piece"
+                 "3. Matlock"
+                 "4. The Final Problem"
+                 "5. The Gentlemen"
+                 "6. Monster: The Lizzie Borden Story"
+                 "7. Not a Stranger"
+                 "8. Ghosts"
+                 "9. Minerva Academy"
+                 "10. Irreplaceable"
+                 "Μερικές πληροφορίες για το East of Eden:"
+                 "Στην κοιλάδα Salinas της California, οι οικογένειες Trask και Hamilton μπλέκονται σε μια σύγκρουση που περνά από γενιά σε γενιά. Η ιστορία τους ακολουθεί τα βήματα του Cain και του Abel, καθώς τα ίδια σκοτεινά μοτίβα επαναλαμβάνονται και καθορίζουν τις ζωές των απογόνων τους."
+                 "</p>",
+            img_url="https://media.unboxholics.com/media/source/Articles/136908/images/bigImage/netflix-top-10-seires.webp",
+            author=admin,
+        ))
+        db.session.commit()
+
+
 with app.app_context():
     db.create_all()
+    seed_data()
 
 @login_manager.user_loader
 def load_user(user_id):
