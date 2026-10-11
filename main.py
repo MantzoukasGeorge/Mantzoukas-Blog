@@ -14,7 +14,6 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
-    # '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
@@ -36,7 +35,6 @@ class Base(DeclarativeBase):
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///posts.db")
-    # 'sqlite:///posts.db'
 
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
